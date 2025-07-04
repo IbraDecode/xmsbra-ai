@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMsbra AI - API Gratis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .result-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-card h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .result-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .api-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .api-info h4 {
+            margin-bottom: 10px;
+        }
+
+        .api-info code {
+            background: #bee5eb;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .input-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 XMsbra AI - API Gratis</h1>
+            <p>Testing chatbot XMsbra AI Gratis dengan pipeline multi-model</p>
+        </div>
+
+        <div class="main-content">
+            <div class="api-info">
+                <h4>📋 Informasi API</h4>
+                <p><strong>Endpoint:</strong> <code>POST /api/xmsbra/ibradecodeprojects</code></p>
+                <p><strong>Pipeline:</strong> phi3 → mistral → deepseek-coder:6.7b</p>
+                <p><strong>Rate Limit:</strong> 20 requests per minute</p>
+            </div>
+
+            <div class="input-section">
+                <form id="promptForm">
+                    <div class="form-group">
+                        <label for="promptInput">💬 Masukkan prompt Anda:</label>
+                        <textarea 
+                            id="promptInput" 
+                            placeholder="Contoh: Buatkan fungsi JavaScript untuk menghitung faktorial dengan rekursi..."
+                            required
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">
+                        🚀 Kirim ke XMsbra AI
+                    </button>
+                </form>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Memproses melalui pipeline AI...</p>
+                <small>phi3 → mistral → deepseek-coder:6.7b</small>
+            </div>
+
+            <div class="results-section" id="results">
+                <div class="result-card">
+                    <h3>📝 Summary (phi3)</h3>
+                    <div class="result-content" id="summaryResult"></div>
+                </div>
+
+                <div class="result-card">
+                    <h3>⚡ Optimized Prompt (mistral)</h3>
+                    <div class="result-content" id="optimizedResult"></div>
+                </div>
+
+                <div class="result-card">
+                    <h3>💻 Generated Code (deepseek-coder:6.7b)</h3>
+                    <div class="result-content" id="codeResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="frontend.js"></script>
+</body>
+</html>
